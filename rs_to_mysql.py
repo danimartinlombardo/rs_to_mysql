@@ -25,12 +25,14 @@ try:
 	mysql_table_name = 'rs_ops_dim_agency'
 	mysql_conn = pymysql.connect(host='35.195.80.162', port=3306, user=mysql_user, password=mysql_pass, database='GRW_drivers')
 	mysql_cur = mysql_conn.cursor()
-	insert_template = 'INSERT INTO %s (%s) VALUES %s;'
 	column_names = ', '.join([x[0] for x in description])
 	print(column_names)
 	values = ', '.join(["""('""" + """','""".join(map(str, x)) + """')""" for x in rows])
 	print (values)
-	mysql_cur.execute(insert_template % (mysql_table_name, column_names, values))
+	mysql_cur.execute('''
+		INSERT INTO %s (%s)
+		VALUES %s;'''
+		% (mysql_table_name, column_names, values))
 	results = mysql_cur.fetchall()
 	for result in results: print (result)
 except pymysql.Error as e:
