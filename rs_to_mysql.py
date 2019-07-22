@@ -9,7 +9,7 @@ try:
 	redshift_cur = redshift_conn.cursor()
 	redshift_cur.execute('''
 		SELECT
-			sk_agency, id_agency, cd_code, ds_slug, tm_updated_at
+			sk_agency, id_agency, cd_code, ds_slug
 		FROM %s
 		WHERE
 			tm_updated_at > date_trunc('day', DATEADD(day, -90, GETDATE()));'''
