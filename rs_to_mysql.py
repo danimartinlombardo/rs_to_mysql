@@ -26,9 +26,9 @@ try:
 	mysql_conn = pymysql.connect(host='35.195.80.162', port=3306, user=mysql_user, password=mysql_pass, database='GRW_drivers')
 	mysql_cur = mysql_conn.cursor()
 	insert_template = 'insert into %s (%s) values %s;'
-	print(insert_template)
 	column_names = ', '.join([x[0] for x in description])
 	values = ', '.join(['(' + ','.join(map(str, x)) + ')' for x in rows])
+	for value in values: print (value)
 	mysql_cur.execute(insert_template % (mysql_table_name, column_names, values))
 	print (len(values))
 except pymysql.Error as e:
