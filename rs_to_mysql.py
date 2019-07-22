@@ -11,8 +11,8 @@ try:
 		SELECT
 			sk_agency, id_agency, cd_code, ds_slug, tm_updated_at
 		FROM %s
-		#WHERE
-		#	tm_updated_at > date_trunc('day', DATEADD(day, -5, GETDATE()));'''
+		WHERE
+			tm_updated_at > date_trunc('day', DATEADD(day, -90, GETDATE()));'''
 		% redshift_table_name)
 	description = redshift_cur.description
 	rows = redshift_cur.fetchall()
