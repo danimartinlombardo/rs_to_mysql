@@ -23,6 +23,7 @@ try:
 	mysql_cur = mysql_conn.cursor()
 	print ("Check 4")
 	insert_template = 'insert into %s (%s) values %s;'
+	print(insert_template)
 	column_names = ', '.join([x[0] for x in description])
 	values = ', '.join(['(' + ','.join(map(str, x)) + ')' for x in rows])
 	print (len(values))
