@@ -25,8 +25,9 @@ try:
 	mysql_table_name = 'rs_ops_dim_region'
 	mysql_conn = pymysql.connect(host='35.195.80.162', port=3306, user=mysql_user, password=mysql_pass, database='GRW_drivers')
 	mysql_cur = mysql_conn.cursor()
-	insert_template = 'insert into %s (%s) values %s;'
+	insert_template = 'INSERT INTO %s (%s) VALUES %s;'
 	column_names = ', '.join([x[0] for x in description])
+	print(column_names)
 	values = ', '.join(['(' + ','.join(map(str, x)) + ')' for x in rows])
 	print (values)
 	mysql_cur.execute(insert_template % (mysql_table_name, column_names, values))
