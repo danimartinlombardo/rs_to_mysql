@@ -28,7 +28,7 @@ try:
 	insert_template = 'INSERT INTO %s (%s) VALUES %s;'
 	column_names = ', '.join([x[0] for x in description])
 	print(column_names)
-	values = ', '.join(['(' + ','.join(map(str, x)) + ')' for x in rows])
+	values = ', '.join(['(\'' + '\','.join(map(x)) + '\')' for x in rows])
 	print (values)
 	mysql_cur.execute(insert_template % (mysql_table_name, column_names, values))
 	print (len(values))
