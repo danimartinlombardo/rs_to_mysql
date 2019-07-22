@@ -16,7 +16,7 @@ try:
 		% redshift_table_name)
 	description = redshift_cur.description
 	rows = redshift_cur.fetchall()
-	print (len(rows))
+	for row in rows: print (row)
 except psycopg2.Error as e:
 	print(str(e))
 
