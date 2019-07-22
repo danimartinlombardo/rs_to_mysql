@@ -7,21 +7,24 @@ try:
 	redshift_table_name = 'datawarehouse.ops_dim_agency'
 	redshift_conn = psycopg2.connect(dbname= 'dwh', host='cabify-datawarehouse.cxdpjwjwbg9i.eu-west-1.redshift.amazonaws.com', port= '5439', user= rs_user, password= rs_pass)
 	redshift_cur = redshift_conn.cursor()
-	print ("Check 1")
-	redshift_cur.execute('select * from %s;' % redshift_table_name)
+	redshift_cur.execute('''
+		SELECT
+			sk_agency, id_agency, cd_code, ds_slug, tm_updated_at
+		FROM %s
+		#WHERE
+		#	tm_updated_at > date_trunc('day', DATEADD(day, -5, GETDATE()))'''
+		, % redshift_table_name)
 	description = redshift_cur.description
 	rows = redshift_cur.fetchall()
 	print (len(rows))
 except psycopg2.Error as e:
 	print(str(e))
 
-print ("Check 3")
 # Insert data to Mysql
 try:
-	mysql_table_name = 'ops_dim_agency'
+	mysql_table_name = 'rs_ops_dim_region'
 	mysql_conn = pymysql.connect(host='35.195.80.162', port=3306, user=mysql_user, password=mysql_pass, database='GRW_drivers')
 	mysql_cur = mysql_conn.cursor()
-	print ("Check 4")
 	insert_template = 'insert into %s (%s) values %s;'
 	print(insert_template)
 	column_names = ', '.join([x[0] for x in description])
@@ -30,4 +33,3 @@ try:
 	print (len(values))
 except pymysql.Error as e:
 	print(str(e))
-print ("Check 6")
