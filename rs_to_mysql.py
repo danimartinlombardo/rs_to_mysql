@@ -22,7 +22,7 @@ except psycopg2.Error as e:
 
 # Insert data to Mysql
 try:
-	mysql_table_name = 'rs_ops_dim_region'
+	mysql_table_name = 'rs_ops_dim_agency'
 	mysql_conn = pymysql.connect(host='35.195.80.162', port=3306, user=mysql_user, password=mysql_pass, database='GRW_drivers')
 	mysql_cur = mysql_conn.cursor()
 	insert_template = 'INSERT INTO %s (%s) VALUES %s;'
