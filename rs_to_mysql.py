@@ -16,9 +16,9 @@ try:
 		% redshift_table_name)
 	description = redshift_cur.description
 	rows = redshift_cur.fetchall()
-	print("Successfully loaded "+str(len(rows))+" regions")
+	print("Successfully loaded "+str(len(rows))+" agencies")
 except psycopg2.Error as e:
-	print("ERROR loading regions: "+str(e))
+	print("ERROR loading agencies: "+str(e))
 
 # Insert data to Mysql
 try:
@@ -30,13 +30,13 @@ try:
 	mysql_cur.execute('''
 		DELETE FROM %s;'''
 		% (mysql_table_name))
-	print ("Table erased")
+	print ("Table agency erased")
 	mysql_cur.execute('''
 		INSERT INTO %s (%s)
 		VALUES %s;'''
 		% (mysql_table_name, column_names, values))
 	mysql_conn.commit()
 	results = mysql_cur.fetchall()
-	print("Successfully table update")
+	print("Table agency updated")
 except pymysql.Error as e:
-	print("ERROR updating table: "+str(e))
+	print("ERROR updating agency table: "+str(e))
