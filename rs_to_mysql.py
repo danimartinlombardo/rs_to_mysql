@@ -37,6 +37,6 @@ try:
 		% (mysql_table_name, column_names, values))
 	mysql_conn.commit()
 	results = mysql_cur.fetchall()
-	print("Successfully inserted "+str(len(values))+" regions")
+	print("Successfully table update")
 except pymysql.Error as e:
-	print("ERROR inserting regions: "+str(e))
+	print("ERROR updating table: "+str(e))
