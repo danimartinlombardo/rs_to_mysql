@@ -16,9 +16,9 @@ try:
 		% redshift_table_name)
 	description = redshift_cur.description
 	rows = redshift_cur.fetchall()
-	for row in rows: print (row)
+	print("Successfully loaded "+len(rows)+" regions")
 except psycopg2.Error as e:
-	print(str(e))
+	print("ERROR loading regions: "+str(e))
 
 # Insert data to Mysql
 try:
@@ -26,15 +26,14 @@ try:
 	mysql_conn = pymysql.connect(host='35.195.80.162', port=3306, user=mysql_user, password=mysql_pass, database='GRW_drivers')
 	mysql_cur = mysql_conn.cursor()
 	column_names = ', '.join([x[0] for x in description])
-	print(column_names)
 	values = ', '.join(["""('""" + """','""".join(map(str, x)) + """')""" for x in rows])
-	print (values)
 	mysql_cur.execute('''
+		DELETE FROM %s;
 		INSERT INTO %s (%s)
 		VALUES %s;'''
-		% (mysql_table_name, column_names, values))
+		% (mysql_table_name, mysql_table_name, column_names, values))
 	mysql_conn.commit()
 	results = mysql_cur.fetchall()
-	for result in results: print (result)
+	print("Successfully inserted "+len(values)+" regions")
 except pymysql.Error as e:
-	print(str(e))
+	print("ERROR inserting regions: "+str(e))
