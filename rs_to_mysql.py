@@ -16,7 +16,7 @@ try:
 		% redshift_table_name)
 	description = redshift_cur.description
 	rows = redshift_cur.fetchall()
-	print("Successfully loaded "+len(rows)+" regions")
+	print("Successfully loaded "+str(len(rows))+" regions")
 except psycopg2.Error as e:
 	print("ERROR loading regions: "+str(e))
 
@@ -34,6 +34,6 @@ try:
 		% (mysql_table_name, mysql_table_name, column_names, values))
 	mysql_conn.commit()
 	results = mysql_cur.fetchall()
-	print("Successfully inserted "+len(values)+" regions")
+	print("Successfully inserted "+str(len(values))+" regions")
 except pymysql.Error as e:
 	print("ERROR inserting regions: "+str(e))
