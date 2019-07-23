@@ -33,6 +33,7 @@ try:
 		INSERT INTO %s (%s)
 		VALUES %s;'''
 		% (mysql_table_name, column_names, values))
+	mysql_cur.commit()
 	results = mysql_cur.fetchall()
 	for result in results: print (result)
 except pymysql.Error as e:
