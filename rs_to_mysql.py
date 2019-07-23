@@ -28,10 +28,13 @@ try:
 	column_names = ', '.join([x[0] for x in description])
 	values = ', '.join(["""('""" + """','""".join(map(str, x)) + """')""" for x in rows])
 	mysql_cur.execute('''
-		DELETE FROM %s;
+		DELETE FROM %s;'''
+		% (mysql_table_name))
+	print ("Table erased")
+	mysql_cur.execute('''
 		INSERT INTO %s (%s)
 		VALUES %s;'''
-		% (mysql_table_name, mysql_table_name, column_names, values))
+		% (mysql_table_name, column_names, values))
 	mysql_conn.commit()
 	results = mysql_cur.fetchall()
 	print("Successfully inserted "+str(len(values))+" regions")
